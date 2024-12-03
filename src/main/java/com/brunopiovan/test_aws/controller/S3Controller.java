@@ -37,4 +37,16 @@ public class S3Controller {
             return ResponseEntity.status(500).body("Download failed: " + e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteFile(@RequestParam("key") String key) {
+        try {
+            String response = s3Service.deleteFile(key);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Delete failed: " + e.getMessage());
+        }
+    }
+
+
 }

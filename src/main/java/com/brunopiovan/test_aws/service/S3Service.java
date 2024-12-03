@@ -80,4 +80,16 @@ public class S3Service {
         }
     }
 
+    public String deleteFile(String key) {
+        try {
+            s3Client.deleteObject(bucketName, key);
+            logger.info("File with key '{}' deleted successfully from bucket '{}'", key, bucketName);
+            return "File deleted successfully!";
+        } catch (Exception e) {
+            logger.error("Failed to delete file with key '{}': {}", key, e.getMessage(), e);
+            throw new RuntimeException("Delete failed: " + e.getMessage(), e);
+        }
+    }
+
+
 }

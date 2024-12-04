@@ -1,9 +1,8 @@
 package com.brunopiovan.test_aws.service;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.*;
 import com.brunopiovan.test_aws.config.S3Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +15,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class S3Service {
@@ -88,6 +90,33 @@ public class S3Service {
         } catch (Exception e) {
             logger.error("Failed to delete file with key '{}': {}", key, e.getMessage(), e);
             throw new RuntimeException("Delete failed: " + e.getMessage(), e);
+        }
+    }
+
+    public List<String> listVideos() {
+        try {
+            // Verifique se o bucket existe
+            if (!s3Client.doesBucketExistV2(bucketName)) {
+                throw new RuntimeException("Bucket não encontrado: " + bucketName);
+            }
+
+            // Listando todos os objetos no bucket
+            List<S3ObjectSummary> objectSummaries = s3Client.listObjectsV2(bucketName).getObjectSummaries();
+
+            // Filtrando arquivos de vídeo (por exemplo, com a extensão .mp4)
+            List<String> videoUrls = objectSummaries.stream()
+                    .filter(summary -> summary.getKey().endsWith(".mp4")) // Filtra arquivos .mp4
+                    .map(summary -> s3Client.getUrl(bucketName, summary.getKey()).toString())
+                    .collect(Collectors.toList());
+
+            if (videoUrls.isEmpty()) {
+                throw new RuntimeException("Nenhum vídeo encontrado no bucket.");
+            }
+
+            return videoUrls;
+        } catch (Exception e) {
+            e.printStackTrace();  // Aqui você pode logar ou imprimir o erro completo
+            throw new RuntimeException("Erro ao listar vídeos no S3: " + e.getMessage(), e);
         }
     }
 

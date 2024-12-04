@@ -1,0 +1,145 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+/* Cabeçalho */
+h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Estilo para as seções dos formulários */
+h4 {
+    color: #007bff;
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    border: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+}
+
+/* Estilos para cada botão */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Estilos de resposta */
+#uploadResponse,
+#downloadResponse,
+#deleteResponse {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    display: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+    #videoGallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Tamanho de colunas ajustado para telas menores */
+    }
+
+    .card-body {
+        font-size: 1rem; /* Ajusta o tamanho da fonte do texto nos cards */
+    }
+}
+
+
